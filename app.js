@@ -95,14 +95,14 @@ app.get('/subscriptions', auth.basic, cacheRoute(1000), require('./routes/subscr
  * Starts Twitter sign-in process for adding a user subscription
  **/
 app.get('/subscriptions/add', passport.authenticate('twitter', {
-  callbackURL: '/callbacks/addsub'
+  callbackURL: 'https://d53bea6edc97.ngrok.io/callbacks/addsub'
 }));
 
 /**
  * Starts Twitter sign-in process for removing a user subscription
  **/
 app.get('/subscriptions/remove', passport.authenticate('twitter', {
-  callbackURL: '/callbacks/removesub'
+  callbackURL: 'https://d53bea6edc97.ngrok.io/callbacks/removesub'
 }));
 
 
