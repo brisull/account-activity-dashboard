@@ -16,6 +16,14 @@
       if(cards.length >= 100) {
         cards.last().remove();
       }
+      if (data.event.follow_events) {
+        console.log('follow: ', data.event);
+      } else if (data.event.favorite_events) {
+        console.log('favorite: ', data.event);
+      } else {
+        console.log('Unknown event: ', data.event);
+      }
+
       // render
       $('#event-container').prepend(template({
         internal_id: data.internal_id,
