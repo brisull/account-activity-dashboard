@@ -11,7 +11,7 @@ const socket = require('./helpers/socket')
 
 const app = express()
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 8080))
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 
@@ -95,14 +95,14 @@ app.get('/subscriptions', auth.basic, cacheRoute(1000), require('./routes/subscr
  * Starts Twitter sign-in process for adding a user subscription
  **/
 app.get('/subscriptions/add', passport.authenticate('twitter', {
-  callbackURL: 'https://d53bea6edc97.ngrok.io/callbacks/addsub'
+  callbackURL: 'https://twitter5-dot-brisull-site.uc.r.appspot.com/callbacks/addsub'
 }));
 
 /**
  * Starts Twitter sign-in process for removing a user subscription
  **/
 app.get('/subscriptions/remove', passport.authenticate('twitter', {
-  callbackURL: 'https://d53bea6edc97.ngrok.io/callbacks/removesub'
+  callbackURL: 'https://twitter5-dot-brisull-site.uc.r.appspot.com/callbacks/removesub'
 }));
 
 
