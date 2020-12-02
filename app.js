@@ -8,8 +8,10 @@ const security = require('./helpers/security')
 const auth = require('./helpers/auth')
 const cacheRoute = require('./helpers/cache-route')
 const socket = require('./helpers/socket')
+const Firestore = require('./helpers/firestore')
 
 const app = express()
+const fireStore = new Firestore();
 
 app.set('port', (process.env.PORT || 8080))
 app.set('views', __dirname + '/views')
@@ -63,10 +65,11 @@ app.get('/webhook/twitter', function(request, response) {
  **/
 app.post('/webhook/twitter', function(request, response) {
 
-  console.log(request.body)
-  
+  // console.log(request.body)
+  const internalId = uuid();
+  fireStore.save(internalId, request.body);
   socket.io.emit(socket.activity_event, {
-    internal_id: uuid(),
+    internal_id: internalId,
     event: request.body
   })
 
@@ -95,14 +98,14 @@ app.get('/subscriptions', auth.basic, cacheRoute(1000), require('./routes/subscr
  * Starts Twitter sign-in process for adding a user subscription
  **/
 app.get('/subscriptions/add', passport.authenticate('twitter', {
-  callbackURL: 'https://twitter5-dot-brisull-site.uc.r.appspot.com/callbacks/addsub'
+  callbackURL: 'https://ec371a232ee8.ngrok.io/callbacks/addsub'
 }));
 
 /**
  * Starts Twitter sign-in process for removing a user subscription
  **/
 app.get('/subscriptions/remove', passport.authenticate('twitter', {
-  callbackURL: 'https://twitter5-dot-brisull-site.uc.r.appspot.com/callbacks/removesub'
+  callbackURL: 'https://ec371a232ee8.ngrok.io/callbacks/removesub'
 }));
 
 
