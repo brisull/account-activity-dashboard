@@ -2,6 +2,10 @@
 
   var activity = {};
 
+  Handlebars.registerHelper('toJSON', function(obj) {
+    return JSON.stringify(obj, null, 2);
+  });
+
 
   /**
    * Connect to socket
@@ -30,6 +34,21 @@
         json_str: JSON.stringify(data.event, null, 2)
       }));
       $('#waiting-msg').hide();
+
+      // io.connect(socket_host).emit('list_event', {
+      //   internal_id: 'foo',
+      //   event: 'bar'
+      // });
+    });
+
+    io.connect(socket_host).on('list_event', function (data) {
+      console.log('LIST!!');
+      var tmpl_source = document.getElementById('json_list_template').innerHTML;
+      var template = Handlebars.compile(tmpl_source);
+      $('#list-container').html(template({
+        internal_id: 'foo',
+        list: data,
+      }));
     });
   };
 

@@ -25,6 +25,12 @@
   </div>
 </div>
 
+<div class="row">
+  <div id="list-container" class="col-sm-12">
+  </div>
+</div>
+
+
 <!-- JSON template -->
 <script id="json_template" type="text/x-handlebars-template"> 
   <div class="card">
@@ -36,6 +42,32 @@
     </div>
     <div class="json-event card-body">
       <textarea id="json-str-{{internal_id}}" class="form-control" disabled>{{json_str}}</textarea>
+    </div>
+  </div>
+</script>
+
+<script id="json_list_template" type="text/x-handlebars-template"> 
+  <div class="list">
+    <div class="json-list body">
+      <p>{{list.internal_id}}:</p>
+      <ul class="people_list">
+        {{#list.events}}
+          <li>
+            <p>{{type}} : {{title}}</p>
+            {{#body.favorite_events}}
+                <p>Favorited status: <pre>{{toJSON favorited_status}}</pre></p>
+                <p>User: <pre>{{toJSON user}}</pre></p>
+                <hr>
+            {{/body.favorite_events}}
+            {{#body.follow_events}}
+                <p>Target: <pre>{{toJSON target}}</pre></p>
+                <p>Source <pre>{{toJSON source}}</pre></p>
+                <hr>
+            {{/body.follow_events}}
+          </li>
+        {{/list.events}}
+      </ul>
+      <!-- <textarea id="json-str-{{internal_id}}" class="form-control" disabled>{{list}}</textarea> -->
     </div>
   </div>
 </script>

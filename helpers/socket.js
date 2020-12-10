@@ -6,6 +6,7 @@ const uuid = require('uuid/v4')
 var socket = { }
 
 socket.activity_event = 'activity_event_' + uuid()
+socket.list_event = 'list_event_' + uuid()
 
 
 /**

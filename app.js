@@ -73,6 +73,15 @@ app.post('/webhook/twitter', function(request, response) {
     event: request.body
   })
 
+  const list = fireStore.list(internalId, request.body)
+      .then( (listData) => {
+        // console.log('list', listData);
+        socket.io.emit('list_event', {
+          internal_id: internalId,
+          events: listData
+        })
+      });
+
   response.send('200 OK')
 })
 
@@ -98,14 +107,14 @@ app.get('/subscriptions', auth.basic, cacheRoute(1000), require('./routes/subscr
  * Starts Twitter sign-in process for adding a user subscription
  **/
 app.get('/subscriptions/add', passport.authenticate('twitter', {
-  callbackURL: 'https://ec371a232ee8.ngrok.io/callbacks/addsub'
+  callbackURL: 'https://070dcf63ce8a.ngrok.io/callbacks/addsub'
 }));
 
 /**
  * Starts Twitter sign-in process for removing a user subscription
  **/
 app.get('/subscriptions/remove', passport.authenticate('twitter', {
-  callbackURL: 'https://ec371a232ee8.ngrok.io/callbacks/removesub'
+  callbackURL: 'https://070dcf63ce8a.ngrok.io/callbacks/removesub'
 }));
 
 
